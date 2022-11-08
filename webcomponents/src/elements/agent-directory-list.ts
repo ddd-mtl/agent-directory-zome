@@ -1,8 +1,6 @@
 import {css, html, LitElement} from "lit";
 import {property, state} from "lit/decorators.js";
-
 import { contextProvided } from '@lit-labs/context';
-
 import {ScopedElementsMixin} from "@open-wc/scoped-elements";
 import {agentDirectoryContext, AgentDirectoryViewModel} from "../agent_directory.vm";
 

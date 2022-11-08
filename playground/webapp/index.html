@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #fafafa;
+      }
+    </style>
+    <script>
+      if (global === undefined) {
+        var global = window;
+      }
+    </script>
+  </head>
+  <body style="margin:0px;background: #FAF1EA;height:100vh;">
+    <tasker-app></tasker-app>
+
+    <script type="module">
+      import { DashboardApp } from "./out-tsc";
+      customElements.define("dashboard-app", DashboardApp);
+    </script>
+  </body>
+</html>

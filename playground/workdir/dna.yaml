@@ -1,0 +1,16 @@
+---
+manifest_version: "1"
+name: agentDashboard
+uuid: ~
+properties: ~
+integrity:
+  origin_time: 2022-09-25T13:55:49.200Z
+  zomes:
+    - name: agent_directory_integrity
+      bundled: ../../target/wasm32-unknown-unknown/release/agent_directory_integrity.wasm
+coordinator:
+  zomes:
+    - name: agent_directory
+      bundled: ../../target/wasm32-unknown-unknown/release/agent_directory.wasm
+      dependencies:
+        - name: agent_directory_integrity
