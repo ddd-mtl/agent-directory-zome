@@ -1,13 +1,13 @@
+import {createContext} from "@lit-labs/context";
+import {LitElement} from "lit";
+import {writable, Writable, get} from "svelte/store";
+
 import {AgentPubKeyB64, Dictionary} from '@holochain-open-dev/core-types';
 import {AgnosticClient} from '@holochain-open-dev/cell-client';
 import {CellId} from "@holochain/client";
 import {serializeHash} from "@holochain-open-dev/utils";
-import {AgentDirectoryBridge} from "./agent_directory.bridge";
-import {createContext} from "@lit-labs/context";
-import {LitElement} from "lit";
-import {writable, Writable, get} from "svelte/store";
-import {TaskListEntry} from "./tasker.types";
 
+import {AgentDirectoryBridge} from "./agent_directory.bridge";
 
 export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('agent_directory/service');
 
