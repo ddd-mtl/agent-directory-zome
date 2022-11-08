@@ -23,7 +23,7 @@ None
 ZomeViewModel available in Typescript
 
 ## Custom Elements
-- `agent-directory-list-view`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`
+- `agent-directory-list`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`
 
 
 # Design
