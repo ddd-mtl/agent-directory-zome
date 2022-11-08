@@ -2,7 +2,7 @@
 
 A holochain zome module that registers agents to a known directory path on agent init.
 
-# API
+# ZOME API
 
 ### EntryTypes
 None
@@ -16,6 +16,14 @@ None
 
 ### Signals
 None
+
+
+# Web API
+
+ZomeViewModel available in Typescript
+
+## Custom Elements
+- `agent-directory-list-view`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`
 
 
 # Design
