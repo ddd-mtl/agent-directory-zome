@@ -1,6 +1,7 @@
 {
   "name": "@ddd-qc/agent-directory",
   "version": "1.165.0",
+  "license" : "CAL-1.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
