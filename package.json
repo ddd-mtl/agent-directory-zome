@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "name": "agent-directory-root",
   "workspaces": [
     "webcomponents",
     "playground/webapp"
