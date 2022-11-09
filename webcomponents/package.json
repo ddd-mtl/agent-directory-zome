@@ -1,5 +1,5 @@
 {
-  "name": "@agent-directory/elements",
+  "name": "@ddd-qc/agent-directory",
   "version": "1.165.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
