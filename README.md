@@ -10,6 +10,7 @@ None
 ### LinkTypes
 
  - `Agent`: Used for the Path `"registered_agents"/{AgentPubKey}`
+    - Validation: Only self is allowed to publish the PathEntry to self's key.
 
 ### Zome Functions
  - `get_registered_agents()`: Returns a list of known registered agent-keys.
