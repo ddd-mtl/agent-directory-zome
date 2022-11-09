@@ -23,22 +23,25 @@ export class AgentDirectoryViewModel {
     // });
   }
 
+  /** -- Fields -- */
+
   /** Private */
   private _bridge : AgentDirectoryBridge
   //private _dnaProperties?: DnaProperties;
-
   private _agentStore: Writable<AgentPubKeyB64[]> = writable([]);
 
   /** Public */
-  //agentStore: AgentPubKeyB64[] = []
   myAgentPubKey: AgentPubKeyB64;
 
 
+  /** -- Methods -- */
+
+  /** */
   agents(): AgentPubKeyB64[] {
     return get(this._agentStore);
   }
 
-
+  /** */
   subscribe(parent: LitElement) {
     this._agentStore.subscribe((value) => {
       //console.log("localTaskListStore update called");

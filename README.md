@@ -20,7 +20,13 @@ None
 
 # Web API
 
-ZomeViewModel available in Typescript
+
+## ViewModel
+ - `subscribe(litElement)`: Have host call this to get updated when data has changed
+ - `pullAllFromDht()`: Check the DHT for any kind of new data
+ - `pullAllRegisteredAgents()`: Check the DHT for new registered agents
+ - `agents()`: Getter for the list of registered agents.
+
 
 ## Custom Elements
 - `agent-directory-list`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`
@@ -28,7 +34,7 @@ ZomeViewModel available in Typescript
 
 # Design
 
-We store AgentPubKeys as a PathEntry from `"registered_agents"`
+AgentPubKeys are "stored" as a PathEntry from `"registered_agents"`
 
 This is done buy converting the key's raw bytes into create a PathComponent.
 
@@ -43,4 +49,4 @@ This is done buy converting the key's raw bytes into create a PathComponent.
 
 `npm install`
 
-`npm run build:all`
+`npm run devtest`
