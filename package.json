@@ -42,6 +42,7 @@
     "run-singleton-cli": "^0.0.5",
     "json-parse-better-errors": "^1.0.2"
   },
+  "type": "module",
   "engines": {
     "npm": ">=7.0.0"
   }

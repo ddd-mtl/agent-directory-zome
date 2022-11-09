@@ -3,8 +3,7 @@
 A holochain zome module that registers agents to a known directory path on agent init.
 
 
-# Web API
-
+# API
 
 ## ViewModel
  - `subscribe(litElement)`: Have host call this to get updated when data has changed
@@ -13,5 +12,5 @@ A holochain zome module that registers agents to a known directory path on agent
  - `agents()`: Getter for the list of registered agents.
 
 
-## Custom Elements
-- `agent-directory-list`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`
+# Custom Elements
+- `<agent-directory-list>`: A `ul` of all the AgentPubKeys found by `get_registered_agents()`

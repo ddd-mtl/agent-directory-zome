@@ -1,17 +1,23 @@
 {
   "name": "@ddd-qc/agent-directory",
-  "version": "1.165.1",
+  "version": "1.165.3",
   "license" : "CAL-1.0",
   "keywords": ["holochain", "zome"],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./agent-directory-list": "./dist/elements/agent-directory-list.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch --preserveWatchOutput",
     "analyze": "lit-analyzer src --failFast"
   },
-  "type": "module",
   "devDependencies": {
     "lit-analyzer": "^1.2.1",
     "watch-cli": "^0.2.3",
@@ -27,5 +33,9 @@
     "@open-wc/scoped-elements": "^2.0.1",
     "lit": "^2.2.0",
     "svelte": "^3.42.4"
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
   }
 }
