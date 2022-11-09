@@ -1,7 +1,6 @@
 import { LitElement, html } from "lit";
 import { state } from "lit/decorators.js";
 import { ScopedElementsMixin } from "@open-wc/scoped-elements";
-import {CellId, InstalledCell} from "@holochain/client";
 import {HolochainClient} from "@holochain-open-dev/cell-client";
 import {ContextProvider} from "@lit-labs/context";
 import {AppWebsocket} from "@holochain/client";
@@ -17,14 +16,9 @@ console.log("HC_PORT = " + HC_PORT + " || " + process.env.HC_PORT);
 
 
 /** */
-export class TaskerApp extends ScopedElementsMixin(LitElement) {
+export class DashboardApp extends ScopedElementsMixin(LitElement) {
 
   @state() loaded = false;
-
-  private _cellId: CellId | null = null;
-  //private _cells: InstalledCell[] = []
-
-
 
   /** */
   async firstUpdated() {
@@ -33,23 +27,14 @@ export class TaskerApp extends ScopedElementsMixin(LitElement) {
       ? APP_ID
       : APP_ID + '-' + NETWORK_ID;
     console.log({installed_app_id})
-
     const appWebsocket = await AppWebsocket.connect(wsUrl);
     console.log({appWebsocket})
     const hcClient = new HolochainClient(appWebsocket)
-    /** Setup Tasker */
+    /** Setup Context */
     const appInfo = await hcClient.appWebsocket.appInfo({installed_app_id});
-    this._cellId  = appInfo.cell_data[0].cell_id;
-    const agentDirectoryViewModel = new AgentDirectoryViewModel(hcClient, this._cellId);
-    new ContextProvider(this, agentDirectoryContext, this.agentDirectoryViewModel);
-    /** 
-    this._cells = Object.values(appInfo.cell_data);
-    for (const cell of this._cells) {
-      let dnaInfo = await this.getDnaInfo(hcClient, cell.cell_id, "membranes");
-      for (const zomeName of dnaInfo) {
-        this.appEntryTypeStore[zomeName] = await this.getEntryDefs(hcClient, cell.cell_id, zomeName);
-      }
-    } */
+    const cellId  = appInfo.cell_data[0].cell_id;
+    const agentDirectoryViewModel = new AgentDirectoryViewModel(hcClient, cellId);
+    new ContextProvider(this, agentDirectoryContext, agentDirectoryViewModel);
     /** Done */
     this.loaded = true;
   }
@@ -63,6 +48,7 @@ export class TaskerApp extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div>
+      <h2>Agent Directory Playground</h2>
       <agent-directory-list></agent-directory-list>
       </div>
     `
