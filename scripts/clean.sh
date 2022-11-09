@@ -5,8 +5,8 @@ rm .hc_live*
 rm -rf webcomponents/dist
 rm webcomponents/tsconfig.tsbuildinfo
 # PLAYGROUND DNA
-rm agentDashboard.dna
-rm agentDashboard.happ
+rm playground.dna
+rm playground.happ
 # PLAYGROUND WEB-APP
 rm -rf playground/webapp/dist
 rm -rf playground/webapp/out-tsc

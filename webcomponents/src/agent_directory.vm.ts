@@ -2,17 +2,20 @@ import {createContext} from "@lit-labs/context";
 import {LitElement} from "lit";
 import {writable, Writable, get} from "svelte/store";
 
-import {AgentPubKeyB64, Dictionary} from '@holochain-open-dev/core-types';
-import {AgnosticClient} from '@holochain-open-dev/cell-client';
 import {CellId} from "@holochain/client";
+import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
+import {AgnosticClient} from '@holochain-open-dev/cell-client';
 import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
 
+/** Global Context */
 export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('agent_directory/service');
 
 
-/** */
+/**
+ *
+ */
 export class AgentDirectoryViewModel {
   /** Ctor */
   constructor(protected client: AgnosticClient, cellId: CellId) {

@@ -8,7 +8,7 @@ import {AgentDirectoryList, AgentDirectoryViewModel, agentDirectoryContext} from
 
 
 
-let APP_ID = 'agentDashboard'
+let APP_ID = 'playground'
 let HC_PORT:any = process.env.HC_PORT;
 let NETWORK_ID: any = null
 

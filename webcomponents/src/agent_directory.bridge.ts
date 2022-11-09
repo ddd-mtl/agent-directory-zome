@@ -1,7 +1,10 @@
+import {AgentPubKey, CellId} from "@holochain/client";
 import {AgnosticClient} from '@holochain-open-dev/cell-client';
 
-import {AgentPubKey, CellId} from "@holochain/client";
 
+/**
+ *
+ */
 export class AgentDirectoryBridge {
   /** Ctor */
   constructor(public agnosticClient: AgnosticClient, public cellId: CellId, defaultTimeout?: number) {

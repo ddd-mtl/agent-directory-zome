@@ -1,6 +1,6 @@
 {
   "name": "@agent-directory/elements",
-  "version": "0.1.0-hc.165",
+  "version": "1.165.0",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -23,7 +23,6 @@
     "@holochain-open-dev/utils": "0.4.0",
     "@lit-labs/context": "^0.1.2",
     "@open-wc/scoped-elements": "^2.0.1",
-    "@scoped-elements/shoelace": "^0.0.8",
     "lit": "^2.2.0",
     "svelte": "^3.42.4"
   }
