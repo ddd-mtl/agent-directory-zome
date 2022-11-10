@@ -6,9 +6,9 @@ A holochain zome module that registers agents to a known directory path on agent
 # API
 
 ## ViewModel
- - `subscribe(litElement)`: Have host call this to get updated when data has changed
- - `pullAllFromDht()`: Check the DHT for any kind of new data
- - `pullAllRegisteredAgents()`: Check the DHT for new registered agents
+ - `subscribe(fn)`: Host can provide a function to be called when data store has been updated.
+ - `pullAllFromDht()`: Check the DHT for any kind of new data.
+ - `pullAllRegisteredAgents()`: Check the DHT for new registered agents.
  - `agents()`: Getter for the list of registered agents.
 
 
