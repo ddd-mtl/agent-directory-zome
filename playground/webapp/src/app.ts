@@ -3,9 +3,9 @@ import { state } from "lit/decorators.js";
 import { ScopedElementsMixin } from "@open-wc/scoped-elements";
 import {HolochainClient} from "@holochain-open-dev/cell-client";
 import {ContextProvider} from "@lit-labs/context";
-import {AppWebsocket} from "@holochain/client";
+import {AppWebsocket, Dna} from "@holochain/client";
 import {AgentDirectoryList, AgentDirectoryViewModel, agentDirectoryContext} from "@agent-directory/elements";
-
+import {DnaClient} from "@ddd-qc/dna-client";
 
 
 let APP_ID = 'playground'
@@ -20,6 +20,8 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
 
   @state() loaded = false;
 
+  private _dnaClient?: DnaClient;
+
   /** */
   async firstUpdated() {
     const wsUrl = `ws://localhost:${HC_PORT}`
@@ -33,13 +35,21 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
     /** Setup Context */
     const appInfo = await hcClient.appWebsocket.appInfo({installed_app_id});
     const cellId  = appInfo.cell_data[0].cell_id;
-    const agentDirectoryViewModel = new AgentDirectoryViewModel(hcClient, cellId);
+    this._dnaClient = new DnaClient(hcClient, cellId);
+    const agentDirectoryViewModel = new AgentDirectoryViewModel(this._dnaClient);
     new ContextProvider(this, agentDirectoryContext, agentDirectoryViewModel);
     /** Done */
     this.loaded = true;
   }
 
 
+  /** */
+  async onDumpRequest(e: any) {
+    //console.log("onDumpRequest() CALLED", e)
+    this._dnaClient!.dumpLogs();
+  }
+
+  /** */
   render() {
     console.log("agent-dashobard-app render() called!")
     if (!this.loaded) {
@@ -47,9 +57,10 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <div>
+      <div style="margin:10px;">
       <h2>Agent Directory Playground</h2>
       <agent-directory-list></agent-directory-list>
+        <input type="button" value="dump logs" @click=${this.onDumpRequest}>  
       </div>
     `
   }

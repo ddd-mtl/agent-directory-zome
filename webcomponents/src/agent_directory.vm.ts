@@ -8,6 +8,8 @@ import {AgnosticClient} from '@holochain-open-dev/cell-client';
 import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
+import {DnaClient} from "@ddd-qc/dna-client";
+import {Subscriber} from "svelte/types/runtime/store";
 
 /** Global Context */
 export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('agent_directory/service');
@@ -18,23 +20,14 @@ export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('age
  */
 export class AgentDirectoryViewModel {
   /** Ctor */
-  constructor(protected client: AgnosticClient, cellId: CellId) {
-    this._bridge = new AgentDirectoryBridge(client, cellId);
-    this.myAgentPubKey = serializeHash(cellId[1]);
-    // this.bridge.getProperties().then((properties) => {
-    //   this.latestBucketIndex = Math.floor(properties.startTime / properties.bucketSizeSec) - 1;
-    // });
+  constructor(protected dnaClient: DnaClient) {
+    this._bridge = new AgentDirectoryBridge(dnaClient);
   }
 
   /** -- Fields -- */
 
-  /** Private */
   private _bridge : AgentDirectoryBridge
-  //private _dnaProperties?: DnaProperties;
   private _agentStore: Writable<AgentPubKeyB64[]> = writable([]);
-
-  /** Public */
-  myAgentPubKey: AgentPubKeyB64;
 
 
   /** -- Methods -- */
@@ -45,11 +38,8 @@ export class AgentDirectoryViewModel {
   }
 
   /** */
-  subscribe(parent: LitElement) {
-    this._agentStore.subscribe((value) => {
-      //console.log("localTaskListStore update called");
-      parent.requestUpdate();
-    });
+  subscribe(fn: Subscriber<AgentPubKeyB64[]>) {
+    this._agentStore.subscribe(fn);
   }
 
 

@@ -17,7 +17,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   /** -- Fields -- */
 
-  @state() initialized = false;
+  @state() private _initialized = false;
 
   @contextProvided({ context: agentDirectoryContext })
   _viewModel!: AgentDirectoryViewModel; // WARN: is actually undefined at startup
@@ -27,9 +27,12 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   /** After first call to render() */
   async firstUpdated() {
-    this._viewModel.subscribe(this);
+    this._viewModel.subscribe((_value:any) => {
+      console.log("localTaskListStore update called", this);
+      this.requestUpdate();
+    });
     await this.refresh();
-    this.initialized = true;
+    this._initialized = true;
   }
 
 
@@ -50,7 +53,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
   render() {
     console.log("agent-directory-list render() START");
 
-    if (!this.initialized) {
+    if (!this._initialized) {
       return html`<span>Loading...</span>`;
     }
 
