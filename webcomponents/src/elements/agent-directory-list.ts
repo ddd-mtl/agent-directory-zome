@@ -1,4 +1,4 @@
-import {css, html, LitElement, PropertyValues} from "lit";
+import {html, LitElement} from "lit";
 import {property, state} from "lit/decorators.js";
 import { contextProvided } from '@lit-labs/context';
 import {ScopedElementsMixin} from "@open-wc/scoped-elements";
@@ -24,7 +24,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
   _viewModel!: AgentDirectoryViewModel; // WARN: is actually undefined at startup
 
 
-  @property({type: Object, attribute: false, hasChanged: (value, oldValue) => true})
+  @property({type: Object, attribute: false, hasChanged: (_v, _old) => true})
   perspective!: AgentDirectoryPerspective;
 
 
@@ -32,10 +32,6 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   /** After first call to render() */
   async firstUpdated() {
-    // this._viewModel.subscribe((_value:any) => {
-    //   console.log("localTaskListStore update called", this);
-    //   this.requestUpdate();
-    // });
     this._viewModel.subscribe(this, 'perspective');
     await this.refresh();
     this._initialized = true;

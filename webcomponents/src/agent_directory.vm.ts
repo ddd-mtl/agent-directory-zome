@@ -4,6 +4,7 @@ import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
 import {DnaClient} from "@ddd-qc/dna-client";
+import {ZomeViewModel} from "./ZomeViewModel";
 
 /** Global Context */
 export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('zome_view_model/agent_directory');
@@ -15,74 +16,42 @@ export interface AgentDirectoryPerspective {
 }
 
 
+
 /**
  *
  */
-export class AgentDirectoryViewModel  {
+export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspective> {
   /** Ctor */
   constructor(protected dnaClient: DnaClient) {
+    super();
     this._bridge = new AgentDirectoryBridge(dnaClient);
   }
 
+  /** -- Fields -- */
+
+  private _bridge : AgentDirectoryBridge
+  private _agents: AgentPubKeyB64[] = [];
+
+
+  /** -- Methods -- */
+
+  /* */
+  get perspective(): AgentDirectoryPerspective {
+    return {agents: this._agents}
+  }
+
+
   /** */
-  hasChanged(): boolean {
+  protected hasChanged(): boolean {
     if (!this._previousPerspective) return true;
     let hasChanged = JSON.stringify(this.perspective.agents) !== JSON.stringify(this._previousPerspective.agents)
     return hasChanged
   }
 
 
-  /** -- Fields -- */
-
-  private _bridge : AgentDirectoryBridge
-  private _agents: AgentPubKeyB64[] = [];
-  private _hosts: [any, PropertyKey][] = [];
-
-  private _previousPerspective?: AgentDirectoryPerspective;
-
-  /** -- Methods -- */
-
-  /* */
-  get perspective(): any {
-    return {agents: this._agents}
-  }
-
-
   /** */
-  private notify() {
-    if (!this.hasChanged()) return;
-    for (const [host, propName] of this._hosts) {
-      //host.requestUpdate()
-      host[propName] = this.perspective;
-    }
-    this._previousPerspective = this.perspective
-  }
-
-
-  /** */
-  subscribe(host: any, propName: PropertyKey) {
-    host[propName] = this.perspective;
-    this._hosts.push([host, propName])
-  }
-
-
-  /** */
-  unsubscribe(candidat: any) {
-    let index  = 0;
-    for (const [host, _propName] of this._hosts) {
-      if (host === candidat) break;
-      index += 1;
-    }
-    if (index > -1) {
-      this._hosts.splice(index, 1);
-    }
-  }
-
-
-
-  /** */
-  async probeDht() {
-    await this.probeRegisteredAgents();
+  async probeDht(): Promise<void> {
+    await this.probeRegisteredAgents()
   }
 
 
@@ -90,7 +59,8 @@ export class AgentDirectoryViewModel  {
   async probeRegisteredAgents() {
     let agents = await this._bridge.getAllAgents();
     this._agents = agents.map((agentKey) => serializeHash(agentKey));
-    //this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
+    // Debug add a random string to the perspective
+    // this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
     this.notify()
   }
 
