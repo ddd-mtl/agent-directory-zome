@@ -3,8 +3,7 @@ import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
 import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
-import {DnaClient} from "@ddd-qc/dna-client";
-import {ZomeViewModel} from "./ZomeViewModel";
+import {DnaClient, ZomeViewModel} from "@ddd-qc/dna-client";
 
 /** Global Context */
 export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('zome_view_model/agent_directory');
