@@ -1,8 +1,8 @@
-import {css, html, LitElement} from "lit";
+import {css, html, LitElement, PropertyValues} from "lit";
 import {property, state} from "lit/decorators.js";
 import { contextProvided } from '@lit-labs/context';
 import {ScopedElementsMixin} from "@open-wc/scoped-elements";
-import {agentDirectoryContext, AgentDirectoryViewModel} from "../agent_directory.vm";
+import {agentDirectoryContext, AgentDirectoryPerspective, AgentDirectoryViewModel} from "../agent_directory.vm";
 
 
 /**
@@ -19,18 +19,24 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   @state() private _initialized = false;
 
-  @contextProvided({ context: agentDirectoryContext })
+  @contextProvided({ context: agentDirectoryContext, subscribe: true })
+  @property({ type: Object, attribute: false })
   _viewModel!: AgentDirectoryViewModel; // WARN: is actually undefined at startup
+
+
+  @property({type: Object, attribute: false, hasChanged: (value, oldValue) => true})
+  perspective!: AgentDirectoryPerspective;
 
 
   /** -- Methods -- */
 
   /** After first call to render() */
   async firstUpdated() {
-    this._viewModel.subscribe((_value:any) => {
-      console.log("localTaskListStore update called", this);
-      this.requestUpdate();
-    });
+    // this._viewModel.subscribe((_value:any) => {
+    //   console.log("localTaskListStore update called", this);
+    //   this.requestUpdate();
+    // });
+    this._viewModel.subscribe(this, 'perspective');
     await this.refresh();
     this._initialized = true;
   }
@@ -45,7 +51,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
   /** */
   async refresh(_e?: any) {
     //console.log("refresh(): Pulling data from DHT")
-    await this._viewModel.pullAllFromDht();
+    await this._viewModel.probeDht();
   }
 
 
@@ -57,10 +63,8 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
       return html`<span>Loading...</span>`;
     }
 
-    let agents = this._viewModel.agents();
-
     /* Agents */
-    const agentLi = Object.entries(agents).map(
+    const agentLi = Object.entries(this.perspective.agents).map(
         ([_index, agentIdB64]) => {
           //console.log("" + index + ". " + agentIdB64)
           return html `<li value="${agentIdB64}">${agentIdB64}</li>`

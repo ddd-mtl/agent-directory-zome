@@ -1,61 +1,97 @@
 import {createContext} from "@lit-labs/context";
-import {LitElement} from "lit";
-import {writable, Writable, get} from "svelte/store";
-
-import {CellId} from "@holochain/client";
 import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
-import {AgnosticClient} from '@holochain-open-dev/cell-client';
 import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
 import {DnaClient} from "@ddd-qc/dna-client";
-import {Subscriber} from "svelte/types/runtime/store";
 
 /** Global Context */
-export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('agent_directory/service');
+export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('zome_view_model/agent_directory');
+
+
+/** */
+export interface AgentDirectoryPerspective {
+  agents: AgentPubKeyB64[],
+}
 
 
 /**
  *
  */
-export class AgentDirectoryViewModel {
+export class AgentDirectoryViewModel  {
   /** Ctor */
   constructor(protected dnaClient: DnaClient) {
     this._bridge = new AgentDirectoryBridge(dnaClient);
   }
 
+  /** */
+  hasChanged(): boolean {
+    if (!this._previousPerspective) return true;
+    let hasChanged = JSON.stringify(this.perspective.agents) !== JSON.stringify(this._previousPerspective.agents)
+    return hasChanged
+  }
+
+
   /** -- Fields -- */
 
   private _bridge : AgentDirectoryBridge
-  private _agentStore: Writable<AgentPubKeyB64[]> = writable([]);
+  private _agents: AgentPubKeyB64[] = [];
+  private _hosts: [any, PropertyKey][] = [];
 
+  private _previousPerspective?: AgentDirectoryPerspective;
 
   /** -- Methods -- */
 
-  /** */
-  agents(): AgentPubKeyB64[] {
-    return get(this._agentStore);
-  }
-
-  /** */
-  subscribe(fn: Subscriber<AgentPubKeyB64[]>) {
-    this._agentStore.subscribe(fn);
+  /* */
+  get perspective(): any {
+    return {agents: this._agents}
   }
 
 
   /** */
-  async pullAllFromDht() {
-    await this.pullAllRegisteredAgents();
+  private notify() {
+    if (!this.hasChanged()) return;
+    for (const [host, propName] of this._hosts) {
+      //host.requestUpdate()
+      host[propName] = this.perspective;
+    }
+    this._previousPerspective = this.perspective
   }
 
 
   /** */
-  async pullAllRegisteredAgents() {
+  subscribe(host: any, propName: PropertyKey) {
+    host[propName] = this.perspective;
+    this._hosts.push([host, propName])
+  }
+
+
+  /** */
+  unsubscribe(candidat: any) {
+    let index  = 0;
+    for (const [host, _propName] of this._hosts) {
+      if (host === candidat) break;
+      index += 1;
+    }
+    if (index > -1) {
+      this._hosts.splice(index, 1);
+    }
+  }
+
+
+
+  /** */
+  async probeDht() {
+    await this.probeRegisteredAgents();
+  }
+
+
+  /** */
+  async probeRegisteredAgents() {
     let agents = await this._bridge.getAllAgents();
-    this._agentStore.update(store => {
-      store = agents.map((agentKey) => serializeHash(agentKey));
-      return store;
-    })
+    this._agents = agents.map((agentKey) => serializeHash(agentKey));
+    //this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
+    this.notify()
   }
 
 }

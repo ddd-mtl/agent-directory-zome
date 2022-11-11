@@ -21,6 +21,7 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
   @state() loaded = false;
 
   private _dnaClient?: DnaClient;
+  private _agentDirectoryViewModel?: AgentDirectoryViewModel;
 
   /** */
   async firstUpdated() {
@@ -36,10 +37,16 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
     const appInfo = await hcClient.appWebsocket.appInfo({installed_app_id});
     const cellId  = appInfo.cell_data[0].cell_id;
     this._dnaClient = new DnaClient(hcClient, cellId);
-    const agentDirectoryViewModel = new AgentDirectoryViewModel(this._dnaClient);
-    new ContextProvider(this, agentDirectoryContext, agentDirectoryViewModel);
+    this._agentDirectoryViewModel = new AgentDirectoryViewModel(this._dnaClient);
+    new ContextProvider(this, agentDirectoryContext, this._agentDirectoryViewModel);
     /** Done */
     this.loaded = true;
+  }
+
+  /** */
+  async onRefresh(e: any) {
+    //console.log("onDumpRequest() CALLED", e)
+    this._agentDirectoryViewModel?.probeDht();
   }
 
 
@@ -60,7 +67,8 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
       <div style="margin:10px;">
       <h2>Agent Directory Playground</h2>
       <agent-directory-list></agent-directory-list>
-        <input type="button" value="dump logs" @click=${this.onDumpRequest}>  
+        <input type="button" value="dump logs" @click=${this.onDumpRequest}>
+        <input type="button" value="refresh" @click=${this.onRefresh}>
       </div>
     `
   }
