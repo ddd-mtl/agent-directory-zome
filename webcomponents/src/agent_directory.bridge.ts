@@ -1,19 +1,14 @@
 import {AgentPubKey} from "@holochain/client";
-import {DnaClient} from "@ddd-qc/dna-client";
+import {ZomeBridge} from "@ddd-qc/dna-client";
 
 
 /**
  *
  */
-export class AgentDirectoryBridge {
-  /** Ctor */
-  constructor(protected dnaClient: DnaClient){}
-
-  private _zomeName = 'agent_directory';
-
-  /** Zome API */
+export class AgentDirectoryBridge extends ZomeBridge {
+  zomeName = 'agent_directory';
 
   async getAllAgents(): Promise<AgentPubKey[]> {
-    return this.dnaClient.callZome(this._zomeName,  'get_registered_agents', null);
+    return this.call('get_registered_agents', null);
   }
 }

@@ -19,16 +19,14 @@ export interface AgentDirectoryPerspective {
 /**
  *
  */
-export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspective> {
+export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspective, AgentDirectoryBridge> {
   /** Ctor */
   constructor(protected dnaClient: DnaClient) {
-    super();
-    this._bridge = new AgentDirectoryBridge(dnaClient);
+    super(new AgentDirectoryBridge(dnaClient));
   }
 
   /** -- Fields -- */
 
-  private _bridge : AgentDirectoryBridge
   private _agents: AgentPubKeyB64[] = [];
 
 
