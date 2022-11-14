@@ -2,7 +2,7 @@ import {html, LitElement} from "lit";
 import {property, state} from "lit/decorators.js";
 import { contextProvided } from '@lit-labs/context';
 import {ScopedElementsMixin} from "@open-wc/scoped-elements";
-import {agentDirectoryContext, AgentDirectoryPerspective, AgentDirectoryViewModel} from "../agent_directory.vm";
+import {AgentDirectoryPerspective, AgentDirectoryViewModel} from "../agent_directory.vm";
 
 
 /**
@@ -19,7 +19,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   @state() private _initialized = false;
 
-  @contextProvided({ context: agentDirectoryContext, subscribe: true })
+  @contextProvided({ context: AgentDirectoryViewModel.context, subscribe: true })
   @property({ type: Object, attribute: false })
   _viewModel!: AgentDirectoryViewModel; // WARN: is actually undefined at startup
 

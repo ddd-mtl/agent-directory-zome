@@ -31,14 +31,14 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
   /** */
   async onRefresh(e: any) {
     //console.log("onDumpRequest() CALLED", e)
-    this._dnaViewModel?.probeAll();
+    this._dnaViewModel.probeAll();
   }
 
 
   /** */
   async onDumpRequest(e: any) {
     //console.log("onDumpRequest() CALLED", e)
-    this._dnaViewModel?.dumpLogs();
+    this._dnaViewModel.dumpLogs();
   }
 
   /** */

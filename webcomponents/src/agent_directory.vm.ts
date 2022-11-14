@@ -1,19 +1,15 @@
-import {createContext} from "@lit-labs/context";
 import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
 import {serializeHash} from "@holochain-open-dev/utils";
 
 import {AgentDirectoryBridge} from "./agent_directory.bridge";
 import {DnaClient, ZomeViewModel} from "@ddd-qc/dna-client";
-
-/** Global Context */
-export const agentDirectoryContext = createContext<AgentDirectoryViewModel>('zome_view_model/agent_directory');
+import {createContext} from "@lit-labs/context";
 
 
 /** */
 export interface AgentDirectoryPerspective {
   agents: AgentPubKeyB64[],
 }
-
 
 
 /**
@@ -24,6 +20,9 @@ export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspec
   constructor(protected dnaClient: DnaClient) {
     super(new AgentDirectoryBridge(dnaClient));
   }
+
+  static context = createContext<AgentDirectoryViewModel>('AgentDirectory');
+  getContext():any {return AgentDirectoryViewModel.context}
 
   /** -- Fields -- */
 
