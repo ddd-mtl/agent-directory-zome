@@ -1,16 +1,13 @@
 import { LitElement, html } from "lit";
 import { state } from "lit/decorators.js";
 import { ScopedElementsMixin } from "@open-wc/scoped-elements";
-import {HolochainClient} from "@holochain-open-dev/cell-client";
-import {ContextProvider} from "@lit-labs/context";
-import {AppWebsocket, Dna} from "@holochain/client";
-import {AgentDirectoryList, AgentDirectoryViewModel, agentDirectoryContext} from "@agent-directory/elements";
-import {DnaClient} from "@ddd-qc/dna-client";
+import {AgentDirectoryList, AgentDirectoryViewModel} from "@agent-directory/elements";
+import {DnaViewModel} from "@ddd-qc/dna-client";
 
 
 let APP_ID = 'playground'
 let HC_PORT:any = process.env.HC_PORT;
-let NETWORK_ID: any = null
+
 
 console.log("HC_PORT = " + HC_PORT + " || " + process.env.HC_PORT);
 
@@ -20,25 +17,13 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
 
   @state() loaded = false;
 
-  private _dnaClient?: DnaClient;
-  private _agentDirectoryViewModel?: AgentDirectoryViewModel;
+  private _dnaViewModel!: DnaViewModel;
 
   /** */
   async firstUpdated() {
-    const wsUrl = `ws://localhost:${HC_PORT}`
-    const installed_app_id = NETWORK_ID == null || NETWORK_ID == ''
-      ? APP_ID
-      : APP_ID + '-' + NETWORK_ID;
-    console.log({installed_app_id})
-    const appWebsocket = await AppWebsocket.connect(wsUrl);
-    console.log({appWebsocket})
-    const hcClient = new HolochainClient(appWebsocket)
-    /** Setup Context */
-    const appInfo = await hcClient.appWebsocket.appInfo({installed_app_id});
-    const cellId  = appInfo.cell_data[0].cell_id;
-    this._dnaClient = new DnaClient(hcClient, cellId);
-    this._agentDirectoryViewModel = new AgentDirectoryViewModel(this._dnaClient);
-    new ContextProvider(this, agentDirectoryContext, this._agentDirectoryViewModel);
+    this._dnaViewModel = await DnaViewModel.new(this, HC_PORT, APP_ID);
+    await this._dnaViewModel.addZomeViewModel(AgentDirectoryViewModel)
+    await this._dnaViewModel.probeAll();
     /** Done */
     this.loaded = true;
   }
@@ -46,14 +31,14 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
   /** */
   async onRefresh(e: any) {
     //console.log("onDumpRequest() CALLED", e)
-    this._agentDirectoryViewModel?.probeDht();
+    this._dnaViewModel?.probeAll();
   }
 
 
   /** */
   async onDumpRequest(e: any) {
     //console.log("onDumpRequest() CALLED", e)
-    this._dnaClient!.dumpLogs();
+    this._dnaViewModel?.dumpLogs();
   }
 
   /** */
