@@ -1,6 +1,6 @@
 {
   "name": "@ddd-qc/agent-directory",
-  "version": "4.165.2",
+  "version": "4.165.3",
   "license" : "CAL-1.0",
   "keywords": ["holochain", "zome"],
   "main": "./dist/index.js",
@@ -28,7 +28,7 @@
     "@holochain/client": "^0.9.2",
     "@holochain-open-dev/core-types": "^0.5.0",
     "@holochain-open-dev/utils": "0.4.0",
-    "@ddd-qc/dna-client": "0.8.7",
+    "@ddd-qc/dna-client": "0.8.8",
     "lit": "^2.2.0"
   },
   "type": "module",
