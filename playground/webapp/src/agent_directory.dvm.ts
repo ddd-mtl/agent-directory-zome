@@ -1,6 +1,6 @@
 import {DnaViewModel} from "@ddd-qc/dna-client";
-import {AgentDirectoryZvm} from "./agent_directory.zvm";
 import {AppSignalCb} from "@holochain/client";
+import {AgentDirectoryZvm} from "@ddd-qc/agent-directory";
 
 
 /**

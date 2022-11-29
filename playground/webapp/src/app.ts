@@ -2,8 +2,8 @@ import { html } from "lit";
 import { state } from "lit/decorators.js";
 import {cellContext, HappElement, HvmDef} from "@ddd-qc/dna-client";
 import {AgentDirectoryList} from "@agent-directory/elements";
-import {AgentDirectoryDvm} from "@ddd-qc/agent-directory";
 import {ContextProvider} from "@lit-labs/context";
+import {AgentDirectoryDvm} from "./agent_directory.dvm";
 
 
 /** */
