@@ -5,11 +5,20 @@ A holochain zome module that registers agents to a known directory path on agent
 
 # API
 
-## ViewModel
- - `subscribe(fn)`: Host can provide a function to be called when data store has been updated.
- - `pullAllFromDht()`: Check the DHT for any kind of new data.
- - `pullAllRegisteredAgents()`: Check the DHT for new registered agents.
- - `agents()`: Getter for the list of registered agents.
+Uses [dna-client](https://www.npmjs.com/package/@ddd-qc/dna-client) framework.
+Provides a ZomeProxy and ZomeViewModel.
+
+### Perspective
+
+```typescript
+interface AgentDirectoryPerspective {
+    agents: AgentPubKeyB64[], // List of registered agents
+}
+```
+
+### ZomeViewModel
+ - `probeAll()`: Check the DHT for any kind of new data.
+ - `probeRegisteredAgents()`: Check the DHT for new registered agents.
 
 
 # Custom Elements
