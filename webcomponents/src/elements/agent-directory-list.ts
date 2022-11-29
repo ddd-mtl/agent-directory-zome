@@ -1,17 +1,15 @@
-import {html, LitElement} from "lit";
+import {html} from "lit";
 import {property, state} from "lit/decorators.js";
-import { contextProvided } from '@lit-labs/context';
-import {ScopedElementsMixin} from "@open-wc/scoped-elements";
-import {AgentDirectoryPerspective, AgentDirectoryViewModel} from "../agent_directory.vm";
-
+import {ZomeElement} from "@ddd-qc/dna-client";
+import {AgentDirectoryPerspective, AgentDirectoryZvm} from "../agent_directory.zvm";
 
 /**
  * @element agent-directory-list
  */
-export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
+export class AgentDirectoryList extends ZomeElement<AgentDirectoryPerspective, AgentDirectoryZvm> {
   /** Ctor */
   constructor() {
-    super();
+    super(AgentDirectoryZvm.DEFAULT_ZOME_NAME);
   }
 
 
@@ -19,20 +17,13 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
 
   @state() private _initialized = false;
 
-  @contextProvided({ context: AgentDirectoryViewModel.context, subscribe: true })
-  @property({ type: Object, attribute: false })
-  _viewModel!: AgentDirectoryViewModel; // WARN: is actually undefined at startup
-
-
-  @property({type: Object, attribute: false, hasChanged: (_v, _old) => true})
-  perspective!: AgentDirectoryPerspective;
 
 
   /** -- Methods -- */
 
   /** After first call to render() */
   async firstUpdated() {
-    this._viewModel.subscribe(this, 'perspective');
+    //this._viewModel.subscribe(this, 'perspective');
     await this.refresh();
     this._initialized = true;
   }
@@ -47,7 +38,7 @@ export class AgentDirectoryList extends ScopedElementsMixin(LitElement) {
   /** */
   async refresh(_e?: any) {
     //console.log("refresh(): Pulling data from DHT")
-    await this._viewModel.probeDht();
+    await this._zvm.probeAll();
   }
 
 

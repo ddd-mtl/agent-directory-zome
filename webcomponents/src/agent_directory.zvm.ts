@@ -1,9 +1,7 @@
 import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
 import {serializeHash} from "@holochain-open-dev/utils";
-
-import {AgentDirectoryBridge} from "./agent_directory.bridge";
-import {DnaClient, ZomeViewModel} from "@ddd-qc/dna-client";
-import {createContext} from "@lit-labs/context";
+import {ZomeViewModel} from "@ddd-qc/dna-client";
+import {AgentDirectoryProxy} from "./agent_directory.proxy";
 
 
 /** */
@@ -15,14 +13,14 @@ export interface AgentDirectoryPerspective {
 /**
  *
  */
-export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspective, AgentDirectoryBridge> {
-  /** Ctor */
-  constructor(protected dnaClient: DnaClient) {
-    super(new AgentDirectoryBridge(dnaClient));
+export class AgentDirectoryZvm extends ZomeViewModel {
+
+  static readonly ZOME_PROXY = AgentDirectoryProxy;
+
+  get zomeProxy(): AgentDirectoryProxy {
+    return this._zomeProxy as AgentDirectoryProxy;
   }
 
-  static context = createContext<AgentDirectoryViewModel>('AgentDirectory');
-  getContext():any {return AgentDirectoryViewModel.context}
 
   /** -- Fields -- */
 
@@ -46,18 +44,18 @@ export class AgentDirectoryViewModel extends ZomeViewModel<AgentDirectoryPerspec
 
 
   /** */
-  async probeDht(): Promise<void> {
+  async probeAll(): Promise<void> {
     await this.probeRegisteredAgents()
   }
 
 
   /** */
   async probeRegisteredAgents() {
-    let agents = await this._bridge.getAllAgents();
+    let agents = await this.zomeProxy.getAllAgents();
     this._agents = agents.map((agentKey) => serializeHash(agentKey));
     // Debug add a random string to the perspective
     // this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
-    this.notify()
+    this.notifySubscribers()
   }
 
 }

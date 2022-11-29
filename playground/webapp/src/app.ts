@@ -1,49 +1,52 @@
-import { LitElement, html } from "lit";
+import { html } from "lit";
 import { state } from "lit/decorators.js";
-import { ScopedElementsMixin } from "@open-wc/scoped-elements";
-import {AgentDirectoryList, AgentDirectoryViewModel} from "@agent-directory/elements";
-import {DnaViewModel} from "@ddd-qc/dna-client";
-
-
-let APP_ID = 'playground'
-let HC_PORT:any = process.env.HC_PORT;
-
-
-console.log("HC_PORT = " + HC_PORT + " || " + process.env.HC_PORT);
+import {cellContext, HappElement, HvmDef} from "@ddd-qc/dna-client";
+import {AgentDirectoryList} from "@agent-directory/elements";
+import {AgentDirectoryDvm} from "@ddd-qc/agent-directory";
+import {ContextProvider} from "@lit-labs/context";
 
 
 /** */
-export class DashboardApp extends ScopedElementsMixin(LitElement) {
+export class DashboardApp extends HappElement {
+
+  /** Ctor */
+  constructor() {
+    super(Number(process.env.HC_PORT));
+  }
+
+  /** HvmDef */
+  static HVM_DEF: HvmDef = {
+    id: 'playground',
+    dvmDefs: [[AgentDirectoryDvm, "playground"]],
+  };
 
   @state() loaded = false;
 
-  private _dnaViewModel!: DnaViewModel;
 
   /** */
-  async firstUpdated() {
-    this._dnaViewModel = await DnaViewModel.new(this, HC_PORT, APP_ID);
-    await this._dnaViewModel.addZomeViewModel(AgentDirectoryViewModel)
-    await this._dnaViewModel.probeAll();
+  async firstUpdated(): Promise<void> {
+    new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.installedCell);
+    await this.hvm.probeAll();
     /** Done */
     this.loaded = true;
   }
 
   /** */
-  async onRefresh(e: any) {
+  async onRefresh(e: any): Promise<void> {
     //console.log("onDumpRequest() CALLED", e)
-    this._dnaViewModel.probeAll();
+    await this.hvm.probeAll();
   }
 
 
   /** */
-  async onDumpRequest(e: any) {
+  async onDumpRequest(e: any): Promise<void> {
     //console.log("onDumpRequest() CALLED", e)
-    this._dnaViewModel.dumpLogs();
+    await this.hvm.dumpLogs();
   }
 
   /** */
   render() {
-    console.log("agent-dashobard-app render() called!")
+    console.log("<agent-dashobard-app> render()")
     if (!this.loaded) {
       return html`<span>Loading...</span>`;
     }
@@ -58,7 +61,7 @@ export class DashboardApp extends ScopedElementsMixin(LitElement) {
     `
   }
 
-
+  /** */
   static get scopedElements() {
     return {
       "agent-directory-list": AgentDirectoryList,
