@@ -1,6 +1,6 @@
 import {html} from "lit";
 import {property, state} from "lit/decorators.js";
-import {ZomeElement} from "@ddd-qc/dna-client";
+import {ZomeElement} from "@ddd-qc/lit-happ";
 import {AgentDirectoryPerspective, AgentDirectoryZvm} from "../agent_directory.zvm";
 
 /**

@@ -1,5 +1,5 @@
 import {AgentPubKey} from "@holochain/client";
-import {ZomeProxy} from "@ddd-qc/dna-client";
+import {ZomeProxy} from "@ddd-qc/lit-happ";
 
 
 /**

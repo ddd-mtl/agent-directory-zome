@@ -1,6 +1,6 @@
 import { html } from "lit";
 import { state } from "lit/decorators.js";
-import {cellContext, HappElement, HvmDef} from "@ddd-qc/dna-client";
+import {cellContext, HappElement, HvmDef} from "@ddd-qc/lit-happ";
 import {AgentDirectoryList} from "@agent-directory/elements";
 import {ContextProvider} from "@lit-labs/context";
 import {AgentDirectoryDvm} from "./agent_directory.dvm";
@@ -17,7 +17,7 @@ export class DashboardApp extends HappElement {
   /** HvmDef */
   static HVM_DEF: HvmDef = {
     id: 'playground',
-    dvmDefs: [[AgentDirectoryDvm, "playground"]],
+    dvmDefs: [{ctor: AgentDirectoryDvm, baseRoleName: "playground", isClonable: false}],
   };
 
   @state() loaded = false;

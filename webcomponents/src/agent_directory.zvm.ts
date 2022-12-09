@@ -1,6 +1,6 @@
 import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
 import {serializeHash} from "@holochain-open-dev/utils";
-import {ZomeViewModel} from "@ddd-qc/dna-client";
+import {ZomeViewModel} from "@ddd-qc/lit-happ";
 import {AgentDirectoryProxy} from "./agent_directory.proxy";
 
 
