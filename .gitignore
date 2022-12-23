@@ -19,3 +19,7 @@ node_modules
 **/*.happ
 package-lock.json
 .hc
+.hc_live*
+
+playground/webapp/dist/
+playground/webapp/out-tsc/

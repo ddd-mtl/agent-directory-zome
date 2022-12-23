@@ -1,6 +1,5 @@
-import {AgentPubKeyB64} from '@holochain-open-dev/core-types';
-import {serializeHash} from "@holochain-open-dev/utils";
 import {ZomeViewModel} from "@ddd-qc/lit-happ";
+import { AgentPubKeyB64, encodeHashToBase64 } from "@holochain/client";
 import {AgentDirectoryProxy} from "./bindings/agent_directory.proxy";
 
 
@@ -52,7 +51,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
   /** */
   async probeRegisteredAgents() {
     let agents = await this.zomeProxy.getRegisteredAgents();
-    this._agents = agents.map((agentKey) => serializeHash(agentKey));
+    this._agents = agents.map((agentKey) => encodeHashToBase64(agentKey));
     // Debug add a random string to the perspective
     // this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
     this.notifySubscribers()

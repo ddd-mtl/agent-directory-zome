@@ -29,7 +29,7 @@ pub fn validate(op: Op) -> ExternResult<ValidateCallbackResult> {
       Op::RegisterCreateLink (registered_create_link) => {
          let (create, signature) = registered_create_link.create_link.into_inner();
          let link_type = AgentDirectoryLinkType::try_from(ScopedLinkType {
-            zome_id: create.zome_id,
+            zome_index: create.zome_index,
             zome_type: create.link_type,
          })?;
          if link_type == AgentDirectoryLinkType::Agent {

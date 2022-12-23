@@ -4,6 +4,7 @@ import {cellContext, HappElement, HvmDef} from "@ddd-qc/lit-happ";
 import {AgentDirectoryList} from "@agent-directory/elements";
 import {ContextProvider} from "@lit-labs/context";
 import {AgentDirectoryDvm} from "./agent_directory.dvm";
+import { AdminWebsocket } from "@holochain/client";
 
 
 /** */
@@ -24,8 +25,14 @@ export class DashboardApp extends HappElement {
 
 
   /** */
-  async firstUpdated(): Promise<void> {
-    new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.installedCell);
+  async happInitialized(): Promise<void> {
+    new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.cell);
+    /** Authorize all zome calls */
+    const adminWs = await AdminWebsocket.connect(`ws://localhost:${process.env.ADMIN_PORT}`);
+    console.log({adminWs});
+    await this.hvm.authorizeAllZomeCalls(adminWs);
+    console.log("*** Zome call authorization complete");
+    /** Probe */
     await this.hvm.probeAll();
     /** Done */
     this.loaded = true;

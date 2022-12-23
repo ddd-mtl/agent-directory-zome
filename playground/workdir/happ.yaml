@@ -1,16 +1,12 @@
 ---
 manifest_version: "1"
-
 name: agent-dashboard-happ
 description: playground app
-
 roles:
-  - id: playground
+  - name: playground
     provisioning:
       strategy: create
       deferred: false
     dna:
       bundled: ../../playground.dna
-      uuid: ~
-      properties: ~
       clone_limit: 0
