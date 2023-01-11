@@ -5,7 +5,7 @@ A holochain zome module that registers agents to a known directory path on agent
 
 # API
 
-Uses [dna-client](https://www.npmjs.com/package/@ddd-qc/dna-client) framework.
+Uses [lit-happ](https://www.npmjs.com/package/@ddd-qc/lit-happ) framework.
 Provides a ZomeProxy and ZomeViewModel.
 
 ### Perspective
@@ -17,7 +17,6 @@ interface AgentDirectoryPerspective {
 ```
 
 ### ZomeViewModel
- - `probeAll()`: Check the DHT for any kind of new data.
  - `probeRegisteredAgents()`: Check the DHT for new registered agents.
 
 
