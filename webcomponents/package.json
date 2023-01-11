@@ -1,6 +1,6 @@
 {
   "name": "@ddd-qc/agent-directory",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "license" : "CAL-1.0",
   "keywords": ["holochain", "zome"],
   "main": "./dist/index.js",
@@ -21,14 +21,14 @@
   "devDependencies": {
     "lit-analyzer": "^1.2.1",
     "watch-cli": "^0.2.3",
-    "tslib": "^2.3.1",
-    "typescript": "4.3.5"
+    "tslib": "^2.4.0",
+    "typescript": "^4.9.0"
   },
   "dependencies": {
-    "@ddd-qc/lit-happ": "0.10.0",
-    "@ddd-qc/cell-proxy": "0.10.0",
-    "@holochain/client": "^0.11.8",
-    "@holochain-open-dev/core-types": "^0.6.1",
+    "@ddd-qc/lit-happ": "0.10.1",
+    "@ddd-qc/cell-proxy": "0.10.1",
+    "@holochain/client": "^0.11.9",
+    "@holochain-open-dev/core-types": "^0.6.3",
     "lit": "^2.3.0"
   },
   "type": "module",

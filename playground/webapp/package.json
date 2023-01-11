@@ -34,12 +34,12 @@
     "typescript": "^4.9.0"
   },
   "dependencies": {
-    "@ddd-qc/cell-proxy": "0.10.0",
-    "@ddd-qc/lit-happ": "0.10.0",
-    "@agent-directory/elements": "file:../../webcomponents",
+    "@ddd-qc/cell-proxy": "0.10.1",
+    "@ddd-qc/lit-happ": "0.10.1",
+    "@ddd-qc/agent-directory": "file:../../webcomponents",
     "@open-wc/scoped-elements": "^2.1.1",
-    "@holochain/client": "^0.11.8",
-    "@holochain-open-dev/core-types": "^0.6.1",
+    "@holochain/client": "^0.11.9",
+    "@holochain-open-dev/core-types": "^0.6.3",
     "@lit-labs/context": "^0.1.2",
     "lit": "^2.3.0"
   }
