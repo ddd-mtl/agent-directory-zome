@@ -25,7 +25,7 @@ None
 
 AgentPubKeys are "stored" as a PathEntry from `"registered_agents"`
 
-This is done buy converting the key's raw bytes into create a PathComponent.
+This is done by converting the key's raw bytes into create a PathComponent.
 
 
 # TODO

@@ -10,7 +10,7 @@ Provides a ZomeProxy and ZomeViewModel.
 
 ### Perspective
 
-```typescript
+```javascript
 interface AgentDirectoryPerspective {
     agents: AgentPubKeyB64[], // List of registered agents
 }
