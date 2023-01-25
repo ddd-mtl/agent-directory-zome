@@ -6,10 +6,7 @@
     "tsc": "tsc",
     "build": "rm -rf dist && tsc && rollup -c rollup.config.js",
     "build:watch": "tsc -w --incremental --preserveWatchOutput",
-    "start:ui": "concurrently --names tsc,dev-server \"npm run build:watch\" \"web-dev-server --config ./web-dev-server.config.mjs\"",
-    "devtest": "concurrently --names tsc,dev-server \"npm run build:watch\" \"web-dev-server --config ./web-test-server.config.mjs\"",
-    "package": "rm -rf ui.zip && cd dist && bestzip ../ui.zip * && cd .. && hc web-app pack ./webhapp.workdir",
-    "clean:hc": "rm -rf .hc*"
+    "start:ui": "concurrently --names tsc,dev-server \"npm run build:watch\" \"web-dev-server --config ./web-server.config.mjs\""
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.0",
@@ -31,16 +28,16 @@
     "exits": "^2.0.1",
     "path-exists-cli": "^2.0.0",
     "rollup": "^2.56.2",
-    "tslib": "^2.3.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.9.0"
   },
   "dependencies": {
     "@ddd-qc/cell-proxy": "0.12.0",
     "@ddd-qc/lit-happ": "0.12.0",
-    "@ddd-qc/agent-directory": "file:../../webcomponents",
-    "@open-wc/scoped-elements": "^2.1.1",
     "@holochain/client": "^0.11.15",
     "@holochain-open-dev/core-types": "^0.6.3",
+    "@ddd-qc/agent-directory": "file:../../webcomponents",
+    "@open-wc/scoped-elements": "^2.1.1",
     "@lit-labs/context": "^0.1.3",
     "lit": "^2.3.0"
   }

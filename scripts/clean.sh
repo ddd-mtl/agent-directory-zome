@@ -12,3 +12,7 @@ rm -rf playground/webapp/dist
 rm -rf playground/webapp/out-tsc
 rm playground/webapp/tsconfig.tsbuildinfo
 rm playground/webapp/ui.zip
+
+
+rm -rf target
+rm Cargo.lock
