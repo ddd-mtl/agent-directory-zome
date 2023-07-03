@@ -25,7 +25,8 @@ export class DashboardApp extends HappElement {
 
 
   /** */
-  async happInitialized(): Promise<void> {
+  async hvmConstructed(): Promise<void> {
+    console.log("hvmConstructed()")
     new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.cell);
     /** Authorize all zome calls */
     const adminWs = await AdminWebsocket.connect(`ws://localhost:${process.env.ADMIN_PORT}`);
@@ -66,12 +67,5 @@ export class DashboardApp extends HappElement {
         <input type="button" value="refresh" @click=${this.onRefresh}>
       </div>
     `
-  }
-
-  /** */
-  static get scopedElements() {
-    return {
-      "agent-directory-list": AgentDirectoryList,
-    };
   }
 }

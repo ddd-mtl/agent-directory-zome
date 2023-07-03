@@ -37,7 +37,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
   /** */
   protected hasChanged(): boolean {
     if (!this._previousPerspective) return true;
-    let hasChanged = JSON.stringify(this.perspective.agents) !== JSON.stringify(this._previousPerspective.agents)
+    let hasChanged = JSON.stringify(this.perspective.agents) !== JSON.stringify((this._previousPerspective as AgentDirectoryPerspective).agents)
     return hasChanged
   }
 

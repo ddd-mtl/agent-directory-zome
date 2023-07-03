@@ -1,11 +1,12 @@
 import {html} from "lit";
-import {property, state} from "lit/decorators.js";
+import {property, state, customElement} from "lit/decorators.js";
 import {ZomeElement} from "@ddd-qc/lit-happ";
 import {AgentDirectoryPerspective, AgentDirectoryZvm} from "../agent_directory.zvm";
 
 /**
  * @element agent-directory-list
  */
+@customElement("agent-directory-list")
 export class AgentDirectoryList extends ZomeElement<AgentDirectoryPerspective, AgentDirectoryZvm> {
   /** Ctor */
   constructor() {

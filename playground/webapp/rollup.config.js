@@ -1,5 +1,5 @@
 import nodeResolve from "@rollup/plugin-node-resolve";
-import typescript from "@rollup/plugin-typescript";
+//import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 
 import babel from "@rollup/plugin-babel";
@@ -31,7 +31,7 @@ export default {
       browser: true,
       preferBuiltins: false,
     }),
-    typescript({ experimentalDecorators: true, outDir: DIST_FOLDER }),
+    //typescript({ experimentalDecorators: true, outDir: DIST_FOLDER }),
     /** Compile JS to a lower language target */
     babel({
       exclude: /node_modules/,

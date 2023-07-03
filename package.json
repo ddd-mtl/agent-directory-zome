@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@holochain-playground/cli": "^0.0.8",
+    "@web/dev-server-rollup": "^0.3.10",
     "@types/ws": "^8.5.3",    
     "bestzip": "^2.2.0",
     "concurrently": "^6.2.1",
@@ -39,7 +40,17 @@
     "cross-env": "^7.0.3",
     "new-port-cli": "^1.0.0",
     "run-singleton-cli": "^0.0.5",
-    "json-parse-better-errors": "^1.0.2"
+    "json-parse-better-errors": "^1.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@ddd-qc/lit-happ": "0.19.0",
+    "@ddd-qc/cell-proxy": "0.19.0",
+    "@holochain/client": "=0.14.1",
+    "@holochain-open-dev/core-types": "^0.6.3",
+    "@lit-labs/context": "0.2.0",
+    "lit": "2.6.0"
   },
   "type": "module",
   "engines": {
