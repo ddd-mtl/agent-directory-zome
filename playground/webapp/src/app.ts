@@ -29,7 +29,7 @@ export class DashboardApp extends HappElement {
     console.log("hvmConstructed()")
     new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.cell);
     /** Authorize all zome calls */
-    const adminWs = await AdminWebsocket.connect(`ws://localhost:${process.env.ADMIN_PORT}`);
+    const adminWs = await AdminWebsocket.connect(new URL(`ws://localhost:${process.env.ADMIN_PORT}`));
     console.log({adminWs});
     await this.hvm.authorizeAllZomeCalls(adminWs);
     console.log("*** Zome call authorization complete");
