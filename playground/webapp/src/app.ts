@@ -1,7 +1,6 @@
 import { html } from "lit";
 import { state } from "lit/decorators.js";
 import {cellContext, HappElement, HvmDef} from "@ddd-qc/lit-happ";
-import {AgentDirectoryList} from "@ddd-qc/agent-directory";
 import {ContextProvider} from "@lit-labs/context";
 import {AgentDirectoryDvm} from "./agent_directory.dvm";
 import { AdminWebsocket } from "@holochain/client";
@@ -15,11 +14,13 @@ export class DashboardApp extends HappElement {
     super(Number(process.env.HC_PORT));
   }
 
+
   /** HvmDef */
   static HVM_DEF: HvmDef = {
     id: 'playground',
     dvmDefs: [{ctor: AgentDirectoryDvm, baseRoleName: "playground", isClonable: false}],
   };
+
 
   @state() loaded = false;
 
@@ -29,7 +30,7 @@ export class DashboardApp extends HappElement {
     console.log("hvmConstructed()")
     new ContextProvider(this, cellContext, this.hvm.getDvm("playground")!.cell);
     /** Authorize all zome calls */
-    const adminWs = await AdminWebsocket.connect(new URL(`ws://localhost:${process.env.ADMIN_PORT}`));
+    const adminWs = await AdminWebsocket.connect({url: new URL(`ws://localhost:${process.env.ADMIN_PORT}`)});
     console.log({adminWs});
     await this.hvm.authorizeAllZomeCalls(adminWs);
     console.log("*** Zome call authorization complete");

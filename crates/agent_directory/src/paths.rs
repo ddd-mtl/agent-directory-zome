@@ -1,6 +1,5 @@
-
 use hdk::prelude::*;
-use hdk::hash_path::path::Component;
+use hdi::hash_path::path::Component;
 #[allow(unused_imports)]
 use agent_directory_integrity::*;
 
