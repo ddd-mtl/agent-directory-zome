@@ -10,6 +10,10 @@ const commonjs = fromRollup(rollupCommonjs);
 const builtins = fromRollup(rollupBuiltins);
 //const typescript = fromRollup(rollupTypescript);
 
+console.log("web-dev-server: process.env.HAPP_BUILD_MODE: ", process.env.HAPP_BUILD_MODE);
+const HAPP_BUILD_MODE = process.env.HAPP_BUILD_MODE? process.env.HAPP_BUILD_MODE : "Release";
+
+
 /** Use Hot Module replacement by adding --hmr to the start command */
 const hmr = process.argv.includes('--hmr');
 
@@ -35,10 +39,11 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
     //typescript({ experimentalDecorators: true, outDir: 'dist' }),
     replace({
       preventAssignment: true,
-      'process.env.NODE_ENV': `"production"`,
-      'process.env.ENV': JSON.stringify(process.env.ENV),
-      'process.env.HC_PORT': JSON.stringify(process.env.HC_PORT || 8888),
-      'process.env.ADMIN_PORT': JSON.stringify(process.env.ADMIN_PORT || 8888),
+      'process.env.HAPP_BUILD_MODE': JSON.stringify(HAPP_BUILD_MODE),
+      'process.env.HAPP_ENV': JSON.stringify("Devtest"),
+      //'process.env.ENV': JSON.stringify(process.env.ENV),
+      'process.env.HC_ADMIN_PORT': JSON.stringify(process.env.ADMIN_PORT || 8889),
+      'process.env.HC_APP_PORT': JSON.stringify(process.env.HC_PORT || 8888),
       '  COMB =': 'window.COMB =',
       delimiters: ['', ''],
     }),

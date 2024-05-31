@@ -2,6 +2,7 @@
 
 import {AGENT_DIRECTORY_PATH, } from './agent_directory.types';
 import {
+WebsocketConnectionOptions,
 /** types.ts */
 HoloHash,
 AgentPubKey,
