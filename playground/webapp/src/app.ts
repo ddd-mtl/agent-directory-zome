@@ -3,14 +3,27 @@ import { state } from "lit/decorators.js";
 import {cellContext, HappElement, HvmDef} from "@ddd-qc/lit-happ";
 import {ContextProvider} from "@lit-labs/context";
 import {AgentDirectoryDvm} from "./agent_directory.dvm";
+import {AdminWebsocket, AppWebsocket, InstalledAppId} from "@holochain/client";
 
 
 /** */
 export class DashboardApp extends HappElement {
 
-  /** Ctor */
-  constructor() {
-    super(Number(process.env.HC_PORT));
+  // /** Ctor */
+  // constructor() {
+  //   super(Number(process.env.HC_APP_PORT));
+  // }
+
+  /** All arguments should be provided when constructed explicity */
+  constructor(appWs?: AppWebsocket, private _adminWs?: AdminWebsocket, readonly appId?: InstalledAppId) {
+    /** Figure out arguments for super() */
+    const appPort: number = Number(process.env.HC_APP_PORT);
+    const adminUrl = _adminWs
+      ? undefined
+      : process.env.HC_ADMIN_PORT
+        ? new URL(`ws://localhost:${process.env.HC_ADMIN_PORT}`)
+        : undefined;
+    super(appWs? appWs : appPort, appId, adminUrl, 10 * 1000);
   }
 
 
@@ -44,7 +57,8 @@ export class DashboardApp extends HappElement {
   /** */
   async onDumpRequest(e: any): Promise<void> {
     //console.log("onDumpRequest() CALLED", e)
-    await this.hvm.dumpLogs();
+    await this.hvm.dumpCallLogs();
+    //await this.hvm.dumpSignalLogs();
   }
 
   /** */

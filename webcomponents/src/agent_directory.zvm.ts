@@ -1,11 +1,10 @@
-import {ZomeViewModel} from "@ddd-qc/lit-happ";
-import { AgentPubKeyB64, encodeHashToBase64 } from "@holochain/client";
+import {ZomeViewModel, AgentId} from "@ddd-qc/lit-happ";
 import {AgentDirectoryProxy} from "./bindings/agent_directory.proxy";
 
 
 /** */
 export interface AgentDirectoryPerspective {
-  agents: AgentPubKeyB64[],
+  agents: AgentId[],
 }
 
 
@@ -23,7 +22,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
 
   /** -- Fields -- */
 
-  private _agents: AgentPubKeyB64[] = [];
+  private _agents: AgentId[] = [];
 
 
   /** -- Methods -- */
@@ -43,7 +42,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
 
 
   /** */
-  async probeAll(): Promise<void> {
+  async probeAllInner(): Promise<void> {
     await this.probeRegisteredAgents()
   }
 
@@ -51,7 +50,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
   /** */
   async probeRegisteredAgents() {
     let agents = await this.zomeProxy.getRegisteredAgents();
-    this._agents = agents.map((agentKey) => encodeHashToBase64(agentKey));
+    this._agents = agents.map((agentKey) => new AgentId(agentKey));
     // Debug add a random string to the perspective
     // this._agents.push(String.fromCharCode("A".charCodeAt(0) + Math.floor(Math.random() * 26)))
     this.notifySubscribers()

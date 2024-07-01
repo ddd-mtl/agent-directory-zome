@@ -13,8 +13,8 @@
   <body style="margin:0px;background: #FAF1EA;height:100vh;">
     <dashboard-app></dashboard-app>
     <script type="module">
-      console.log("   HC_PORT:", process.env.HC_PORT);
-      console.log("ADMIN_PORT:", process.env.ADMIN_PORT);
+      console.log("  HC_APP_PORT:", process.env.HC_APP_PORT);
+      console.log("HC_ADMIN_PORT:", process.env.HC_ADMIN_PORT);
       import { DashboardApp } from "./dist";
       customElements.define("dashboard-app", DashboardApp);
     </script>

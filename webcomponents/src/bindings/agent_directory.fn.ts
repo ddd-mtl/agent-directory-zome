@@ -8,8 +8,8 @@ export const agentDirectoryFunctionNames: FunctionName[] = [
 	"entry_defs", 
 	"get_zome_info", 
 	"get_dna_info",
-	"get_registered_agents",
 
+	"get_registered_agents",
 ];
 
 

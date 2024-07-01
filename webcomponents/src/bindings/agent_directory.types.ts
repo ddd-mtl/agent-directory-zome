@@ -146,3 +146,15 @@ ValidationReceipt,
    } from '@holochain-open-dev/core-types';
 
 export const AGENT_DIRECTORY_PATH = "registered_agents";
+
+/** Entry types not really necessary but it is defined because we don't want entry_defs() to fail */
+export enum AgentDirectoryEntryType {
+	Stub = 'Stub',
+}
+export type AgentDirectoryEntryVariantStub = {Stub: Stub}
+export type AgentDirectoryEntry = 
+ | AgentDirectoryEntryVariantStub;
+
+/** Bogus Entry */
+export interface Stub {
+}
