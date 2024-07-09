@@ -43,11 +43,11 @@
     "typescript": "~5.2.0"
   },
   "dependencies": {
-    "@ddd-qc/lit-happ": "0.25.1",
-    "@ddd-qc/cell-proxy": "0.25.1",
-    "@holochain/client": "^0.18.0-dev.1",
+    "@ddd-qc/lit-happ": "0.26.5",
+    "@ddd-qc/cell-proxy": "0.26.5",
+    "@holochain/client": "^0.18.0-dev.4",
     "@holochain-open-dev/core-types": "0.7.0",
-    "@lit-labs/context": "0.5.1",
+    "@lit/context"                  : "1.0.1",
     "lit": "3.0.2"
   },
   "type": "module",

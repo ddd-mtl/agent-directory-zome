@@ -24,13 +24,13 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   nodeResolve: {
     preferBuiltins: false,
     browser: true,
-    exportConditions: ['browser', 'development'],
+    exportConditions: ['browser', HAPP_BUILD_MODE === 'Debug' ? 'development' : ''],
   },
 
   /** Compile JS for older browsers. Requires @web/dev-server-esbuild plugin */
   // esbuildTarget: 'auto'
 
-  rootDir: './',
+  rootDir: '../../',
 
   /** Set appIndex to enable SPA routing */
   appIndex: './index.html',
@@ -38,7 +38,7 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   plugins: [
     //typescript({ experimentalDecorators: true, outDir: 'dist' }),
     replace({
-      preventAssignment: true,
+      "preventAssignment": true,
       'process.env.HAPP_BUILD_MODE': JSON.stringify(HAPP_BUILD_MODE),
       'process.env.HAPP_ENV': JSON.stringify("Devtest"),
       //'process.env.ENV': JSON.stringify(process.env.ENV),

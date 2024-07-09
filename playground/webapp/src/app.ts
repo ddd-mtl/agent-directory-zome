@@ -1,12 +1,13 @@
 import { html } from "lit";
-import { state } from "lit/decorators.js";
+import { state, customElement } from "lit/decorators.js";
 import {cellContext, HappElement, HvmDef} from "@ddd-qc/lit-happ";
-import {ContextProvider} from "@lit-labs/context";
+import {ContextProvider} from "@lit/context";
 import {AgentDirectoryDvm} from "./agent_directory.dvm";
 import {AdminWebsocket, AppWebsocket, InstalledAppId} from "@holochain/client";
 
 
 /** */
+@customElement("dashboard-app")
 export class DashboardApp extends HappElement {
 
   // /** Ctor */

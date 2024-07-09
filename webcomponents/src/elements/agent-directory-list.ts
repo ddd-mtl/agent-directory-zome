@@ -53,9 +53,9 @@ export class AgentDirectoryList extends ZomeElement<AgentDirectoryPerspective, A
 
     /* Agents */
     const agentLi = Object.entries(this.perspective.agents).map(
-        ([_index, agentIdB64]) => {
+        ([_index, agentId]) => {
           //console.log("" + index + ". " + agentIdB64)
-          return html `<li value="${agentIdB64}">${agentIdB64}</li>`
+          return html `<li value="${agentId.b64}">${agentId.short}</li>`
         }
     )
 

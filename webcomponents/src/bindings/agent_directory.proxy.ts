@@ -148,17 +148,18 @@ ValidationReceipt,
 
 import {ZomeProxy} from '@ddd-qc/lit-happ';
 import {agentDirectoryFunctionNames} from './agent_directory.fn';
+import {AgentDirectoryUnitEnum, AgentDirectoryLinkType} from './agent_directory.integrity';
 
 /**
  *
  */
 export class AgentDirectoryProxy extends ZomeProxy {
-  static readonly DEFAULT_ZOME_NAME = "agent_directory"
-  static readonly FN_NAMES = agentDirectoryFunctionNames
+  static readonly DEFAULT_ZOME_NAME = "agent_directory";
+  static readonly FN_NAMES = agentDirectoryFunctionNames;
+  static readonly ENTRY_TYPES = Object.values(AgentDirectoryUnitEnum);
+  static readonly LINK_TYPES = Object.values(AgentDirectoryLinkType);
  
-
   async getRegisteredAgents(): Promise<AgentPubKey[]> {
     return this.call('get_registered_agents', null);
   }
-
 }
