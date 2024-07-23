@@ -43,9 +43,9 @@
     "typescript": "~5.2.0"
   },
   "dependencies": {
-    "@ddd-qc/lit-happ": "0.26.5",
-    "@ddd-qc/cell-proxy": "0.26.5",
-    "@holochain/client": "^0.18.0-dev.4",
+    "@ddd-qc/lit-happ": "0.27.0",
+    "@ddd-qc/cell-proxy": "0.27.0",
+    "@holochain/client": "^0.18.0-dev.9",
     "@holochain-open-dev/core-types": "0.7.0",
     "@lit/context"                  : "1.0.1",
     "lit": "3.0.2"
