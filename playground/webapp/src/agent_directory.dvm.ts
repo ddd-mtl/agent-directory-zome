@@ -1,5 +1,5 @@
 import {DnaViewModel} from "@ddd-qc/lit-happ";
-import {AppSignalCb} from "@holochain/client";
+import {SignalCb} from "@holochain/client";
 import {AgentDirectoryZvm} from "@ddd-qc/agent-directory";
 
 
@@ -10,7 +10,7 @@ export class AgentDirectoryDvm extends DnaViewModel {
     /** -- DnaViewModel Interface -- */
     static readonly DEFAULT_BASE_ROLE_NAME = "agent_directory";
     static readonly ZVM_DEFS = [AgentDirectoryZvm]
-    readonly signalHandler?: AppSignalCb;
+    readonly signalHandler?: SignalCb;
 
     /** */
     get zvm(): AgentDirectoryZvm { return this.getZomeViewModel(AgentDirectoryZvm.DEFAULT_ZOME_NAME) as AgentDirectoryZvm};
