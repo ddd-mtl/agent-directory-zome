@@ -41,7 +41,7 @@ pub fn validate_agent_link(create_link: HoloHashed<CreateLink>, signature: Signa
     return Ok(ValidateCallbackResult::Invalid("Failed to convert LinkTag to Component".to_string()))
   };
   /// Retrieve AgentPubKey from Component
-  let maybe_agent_key = AgentPubKey::from_raw_39(component.as_ref().to_vec());
+  let maybe_agent_key = AgentPubKey::try_from_raw_39(component.as_ref().to_vec());
   //debug!("validate_agent_link(): agent_key = {:?}", maybe_agent_key);
   /// Check key in LinkTag matches author and action signature
   let Ok(agent_key) = maybe_agent_key else {

@@ -39,7 +39,7 @@ pub fn path_to_key(agent_path: &Path) -> ExternResult<AgentPubKey> {
    let Some(leaf) = agent_path.leaf() else {
       return Err(wasm_error!(WasmErrorInner::Guest("Path of invalid length".to_string())));
    };
-   let agent_key = AgentPubKey::from_raw_39(leaf.as_ref().to_vec())
+   let agent_key = AgentPubKey::try_from_raw_39(leaf.as_ref().to_vec())
       .map_err(|_e| { wasm_error!(WasmErrorInner::Guest(format!("Registered agent_path has invalid AgentPubKey {:?}", leaf))) });
    agent_key
 }
