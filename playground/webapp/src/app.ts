@@ -16,10 +16,10 @@ export class DashboardApp extends HappElement {
   // }
 
   /** All arguments should be provided when constructed explicity */
-  constructor(appWs?: AppWebsocket, private _adminWs?: AdminWebsocket, readonly appId?: InstalledAppId) {
+  constructor(appWs?: AppWebsocket, private adminWs?: AdminWebsocket, readonly appId?: InstalledAppId) {
     /** Figure out arguments for super() */
     const appPort: number = Number(process.env.HC_APP_PORT);
-    const adminUrl = _adminWs
+    const adminUrl = adminWs
       ? undefined
       : process.env.HC_ADMIN_PORT
         ? new URL(`ws://localhost:${process.env.HC_ADMIN_PORT}`)

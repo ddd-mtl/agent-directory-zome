@@ -1,5 +1,3 @@
-use crate::component_copypasta::Component;
-
 use hdi::prelude::*;
 use crate::*;
 

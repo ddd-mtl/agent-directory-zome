@@ -1,8 +1,5 @@
-/// Copied from hdk/hash_path
-/// TODO: Remove this once hdk/hash_path is moved to hdi and can be imported normally
-mod component_copypasta;
-mod validation;
 
+mod validation;
 
 
 use hdi::prelude::*;
