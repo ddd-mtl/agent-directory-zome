@@ -10,10 +10,15 @@ import {AdminWebsocket, AppWebsocket, InstalledAppId} from "@holochain/client";
 @customElement("dashboard-app")
 export class DashboardApp extends HappElement {
 
-  // /** Ctor */
-  // constructor() {
-  //   super(Number(process.env.HC_APP_PORT));
-  // }
+  /** HvmDef */
+  static HVM_DEF: HvmDef = {
+      id: 'playground',
+      dvmDefs: [{ctor: AgentDirectoryDvm, baseRoleName: "playground", isClonable: false}],
+  };
+
+  /** state */
+  @state() loaded = false;
+
 
   /** All arguments should be provided when constructed explicity */
   constructor(appWs?: AppWebsocket, private adminWs?: AdminWebsocket, readonly appId?: InstalledAppId) {
@@ -27,17 +32,6 @@ export class DashboardApp extends HappElement {
     super(appWs? appWs : appPort, appId, adminUrl, 10 * 1000);
   }
 
-
-  /** HvmDef */
-  static HVM_DEF: HvmDef = {
-    id: 'playground',
-    dvmDefs: [{ctor: AgentDirectoryDvm, baseRoleName: "playground", isClonable: false}],
-  };
-
-
-  @state() loaded = false;
-
-
   /** */
   async hvmConstructed(): Promise<void> {
     console.log("hvmConstructed()")
@@ -50,14 +44,12 @@ export class DashboardApp extends HappElement {
 
   /** */
   async onRefresh(e: any): Promise<void> {
-    //console.log("onDumpRequest() CALLED", e)
     await this.hvm.probeAll();
   }
 
 
   /** */
   async onDumpRequest(e: any): Promise<void> {
-    //console.log("onDumpRequest() CALLED", e)
     await this.hvm.dumpCallLogs();
     //await this.hvm.dumpSignalLogs();
   }

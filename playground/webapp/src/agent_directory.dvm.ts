@@ -4,7 +4,7 @@ import {AgentDirectoryZvm} from "@ddd-qc/agent-directory";
 
 
 /**
- * DnaViewModel fo the agent_directory DNA holding just this zome
+ * DnaViewModel for the agent_directory DNA holding just this zome
  */
 export class AgentDirectoryDvm extends DnaViewModel {
     /** -- DnaViewModel Interface -- */
@@ -16,8 +16,6 @@ export class AgentDirectoryDvm extends DnaViewModel {
     get zvm(): AgentDirectoryZvm { return this.getZomeViewModel(AgentDirectoryZvm.DEFAULT_ZOME_NAME) as AgentDirectoryZvm};
 
     /** -- ViewModel Interface -- */
-
-    /** */
 
     protected hasChanged(): boolean {return true}
 

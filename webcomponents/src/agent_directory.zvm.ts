@@ -39,6 +39,7 @@ export class AgentDirectoryZvm extends ZomeViewModel {
 
   /** */
   async probeRegisteredAgents() {
+    console.log("AgentDirectoryZvm.probeRegisteredAgents()");
     let agents = await this.zomeProxy.getRegisteredAgents();
     this._agents = agents.map((agentKey) => new AgentId(agentKey));
     this.notifySubscribers()
