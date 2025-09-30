@@ -79,7 +79,7 @@ ValidationStatus, ValidationReceipt,
 
 export const AGENT_DIRECTORY_PATH = "registered_agents";
 
-/** Entry types not really necessary but it is defined because we don't want entry_defs() to fail */
+/** Entry types are not necessary, but it is defined because otherwise holochain will fail. */
 export enum AgentDirectoryEntryType {
 	Stub = 'Stub',
 }

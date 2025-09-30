@@ -1,8 +1,8 @@
 # Agent Directory
 
-A holochain zome module that registers agents to a known directory path on agent init.
+A [holochain](https://github.com/holochain/holochain) zome module that registers agents to a public directory path on agent init.
 
-# ZOME API
+## ZOME API
 
 ### EntryTypes
 None
@@ -19,23 +19,27 @@ None
 None
 
 
-# [Web API](webcomponents/README.md)
+## [Web API](webcomponents/README.md)
 
-# Design
+## Design
 
-AgentPubKeys are "stored" as a PathEntry from `"registered_agents"`
+AgentPubKeys are "stored" as a PathEntry from the `"registered_agents"` anchor.
 
 This is done by converting the key's raw bytes into create a PathComponent.
 
 
-# TODO
+## TODO
 
  - Add signaling when new agents are discovered
 
-# Dev Setup
+## Dev Setup
 
-`bash ./scripts/install-hc-tools.sh`
+**Requirements**: Having [nix](https://developer.holochain.org/docs/install) installed.
 
-`npm install`
+run:
+- `nix develop`
+- `npm install` 
+
+## Running Tests
 
 `npm run devtest`

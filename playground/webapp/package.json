@@ -9,7 +9,7 @@
     "tsc": "tsc",
     "dist": "vite build",
     "build": "vite dev --clearScreen false",
-    "start:ui": "vite dev --port $(port) --clearScreen false"
+    "start:ui": "vite --port $UI_PORT --clearScreen false"
   },
   "devDependencies": {
     "vite": "=4.5.2",
