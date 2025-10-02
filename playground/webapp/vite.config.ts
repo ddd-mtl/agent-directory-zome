@@ -49,6 +49,10 @@ export default defineConfig({
     }
   },
   server: {
-    open: true // This will open the browser automatically
+    open: true, // open browser automatically
+    watch: {
+      usePolling: true,
+      interval: 1000, // Check for changes every second
+    }
   }
 });

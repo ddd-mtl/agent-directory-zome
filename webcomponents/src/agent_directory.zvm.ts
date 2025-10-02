@@ -1,7 +1,7 @@
 import {ZomeViewModel, AgentId} from "@ddd-qc/lit-happ";
 import {AgentDirectoryProxy} from "./bindings/agent_directory.proxy";
 
-/** */
+/** Perspective */
 export interface AgentDirectoryPerspective {
   agents: AgentId[],
 }
@@ -9,6 +9,7 @@ export interface AgentDirectoryPerspective {
 /** */
 export class AgentDirectoryZvm extends ZomeViewModel {
 
+  /** -- ZVM Boilerplate -- */
   static readonly ZOME_PROXY = AgentDirectoryProxy;
 
   get zomeProxy(): AgentDirectoryProxy {
