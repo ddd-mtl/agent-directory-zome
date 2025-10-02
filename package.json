@@ -20,7 +20,6 @@
     "clean:npm"      : "bash scripts/clean-npm.sh"
   },
   "devDependencies": {
-    "@web/dev-server-rollup": "^0.3.10",
     "@types/ws": "^8.5.3",
     "bestzip": "^2.2.0",
     "concurrently": "^6.2.1",
