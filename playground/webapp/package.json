@@ -7,8 +7,7 @@
   "scripts": {
     "lint": "eslint --ext .ts .",
     "tsc": "tsc",
-    "dist": "vite build",
-    "build": "vite dev --clearScreen false",
+    "build": "vite build",
     "start:ui": "vite --port $UI_PORT --clearScreen false"
   },
   "devDependencies": {

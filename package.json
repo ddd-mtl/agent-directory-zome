@@ -13,7 +13,7 @@
     "devtest"        : "npm run build:all && npm run start:mem",
 
     "start:happ:mem" : "RUST_LOG=warn echo \"pass\" | hc s --piped -f=$HC_ADMIN_PORT generate ./artifacts/playground.happ --run=$HC_APP_PORT -a playground network mem",
-    "start:mem"      : "UI_PORT=$(port) HC_APP_PORT=$(port) HC_ADMIN_PORT=$(port) HAPP_BUILD_MODE='Debug' concurrently \"npm run start:happ:mem\" \"sleep 5 && npm run start:ui -w playground/webapp\"",
+    "start:mem"      : "RUST_LOG=warn WASM_LOG=debug FORCE_COLOR=0 UI_PORT=$(port) HC_APP_PORT=$(port) HC_ADMIN_PORT=$(port) HAPP_BUILD_MODE='Debug' concurrently \"npm run start:happ:mem\" \"sleep 5 && npm run start:ui -w playground/webapp\"",
 
     "clean:hc"       : "rm -rf .hc*",
     "clean"          : "bash scripts/clean.sh",
@@ -30,9 +30,9 @@
     "typescript": "~5.2.0"
   },
   "dependencies": {
-    "@ddd-qc/cell-proxy": "0.32.3",
-    "@ddd-qc/lit-happ": "0.32.1",
-    "@holochain/client": "=0.19.0",
+    "@ddd-qc/cell-proxy": "0.32.14",
+    "@ddd-qc/lit-happ": "0.32.14",
+    "@holochain/client": "=0.19.1",
     "@holochain-open-dev/core-types": "0.7.0",
     "@lit/context": "1.0.1",
     "lit": "3.0.2"
