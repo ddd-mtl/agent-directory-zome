@@ -8,5 +8,5 @@ roles:
       strategy: create
       deferred: false
     dna:
-      bundled: ../../artifacts/playground.dna
+      path: ../../artifacts/playground.dna
       clone_limit: 0
