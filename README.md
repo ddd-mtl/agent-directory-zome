@@ -1,3 +1,5 @@
+** REPO DEPRECIATED. MOVED TO ZDK AND LIT-HAPP REPOS **
+
 # Agent Directory
 
 A holochain zome module that registers agents to a known directory path on agent init.
